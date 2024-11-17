@@ -398,9 +398,52 @@ main .navbar-container {
     backdrop-filter: blur(8px);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     opacity: 0;
     animation: slide-down 0.7s ease 4s forwards;
     -webkit-animation: slide-down 0.7s ease 4s forwards;
+    position: relative;
+    z-index: 10;
+
+    & .menu-toggler {
+      display: none;
+    }
+
+    & .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+      cursor: pointer;
+      z-index: 20;
+
+      & span {
+        display: block;
+        height: 3px;
+        background: #fff;
+        border-radius: 3px;
+        transition: 0.3s;
+      }
+    }
+
+    & .menu-toggler:checked + .hamburger {
+      & span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      & span:nth-child(2) {
+        opacity: 0;
+      }
+
+      & span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+
+    & .menu-toggler:checked ~ .navigation-menu {
+      transform: translateX(0);
+    }
 
     & .brand-logo a img {
       width: 100px;
@@ -423,6 +466,7 @@ main .navbar-container {
 
       & nav ul {
         display: flex;
+        text-align: center;
 
         & li {
           position: relative;
@@ -439,6 +483,7 @@ main .navbar-container {
           -o-transition: all 0.3s ease;
 
           & .text {
+            font-size: 2rem;
             color: var(--copyright-color);
             transition: transform 0.3s ease;
             -webkit-transition: transform 0.3s ease;
@@ -1114,13 +1159,65 @@ footer .container {
     padding: 0 70px;
   }
 
-  main .navbar-container header {
-    & .navigation-menu nav ul li {
-      height: 15px;
-    }
+  main .navbar-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 
-    & .brand-logo a img {
-      width: 70px;
+    & header {
+      flex-direction: row;
+
+      & .hamburger {
+        display: flex;
+      }
+
+      & .navigation-menu {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: 0%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(59, 53, 54, 0.5);
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+        z-index: 15;
+        -webkit-transition: transform 0.4s ease-in-out;
+        -moz-transition: transform 0.4s ease-in-out;
+        -ms-transition: transform 0.4s ease-in-out;
+        -o-transition: transform 0.4s ease-in-out;
+
+        & nav ul {
+          text-align: left;
+          width: 100%;
+          height: 100%;
+
+          & li {
+            height: 15px;
+            margin-bottom: 10px;
+
+            & a .text {
+              display: block;
+              transition: all 0.3s ease;
+              -webkit-transition: all 0.3s ease;
+              -moz-transition: all 0.3s ease;
+              -ms-transition: all 0.3s ease;
+              -o-transition: all 0.3s ease;
+            }
+
+            & .up {
+              display: none;
+            }
+          }
+        }
+      }
+
+      & .brand-logo a img {
+        width: 70px;
+      }
     }
   }
 
@@ -1177,9 +1274,6 @@ footer .container {
 
   main .navbar-container {
     & header {
-      flex-direction: column;
-      align-items: center;
-
       & .navigation-menu {
         margin-top: 10px;
 
